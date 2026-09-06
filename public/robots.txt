@@ -1,0 +1,9 @@
+# This static file is only a fallback.
+# Delete it and Laravel serves /robots.txt instead, which adds a Sitemap
+# line pointing at whatever APP_URL is set to. See README section 13.
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /booking/success
+Disallow: /booking/status
