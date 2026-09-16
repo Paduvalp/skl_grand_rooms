@@ -318,6 +318,54 @@ fields in Site Settings. Say the word if you want them back later.
 
 ---
 
+## 12b. Privacy policy and terms
+
+Two legal pages ship with the site and are linked from the footer, both in the
+Pages column and in the bar along the bottom:
+
+| Page | Address |
+|------|---------|
+| Privacy Policy | `/privacy-policy` |
+| Terms and Conditions | `/terms-and-conditions` |
+
+Each one has a sticky contents list down the side, a plain-English summary box
+at the top, numbered sections, and a "last updated" date. The hotel name,
+address, phone, email and the check-in and check-out times are pulled from Site
+Settings, so they are never out of step with the rest of the site.
+
+The wording describes what this website genuinely does: the booking form takes a
+request rather than a payment, the only details collected are the ones on the
+booking and contact forms, and the analytics paragraph changes on its own
+depending on whether you have entered a Google Analytics ID.
+
+### Two boxes only you can fill in
+
+Go to **Admin → Site Settings → Privacy policy and terms**:
+
+- **Your cancellation policy** — printed as section 5 of the Terms page, one
+  paragraph per line. Leave it empty and a fair general wording appears instead,
+  but put your real policy in. It is the clause guests argue about.
+- **Legal pages last updated** — the date at the top of both pages. Change it
+  whenever you edit the wording.
+
+### Please read them before you go live
+
+These pages are a solid, honest starting point written around how this
+particular site works, and they are far better than the copied-and-pasted
+template most small hotels use. They are **not legal advice**, and nobody has
+checked them against your specific business. Before you launch:
+
+1. Read both pages through as if you were a guest.
+2. Fix anything that is not true of your hotel — the house rules, the quiet
+   hours, whether you take pets, how parking works.
+3. Put your real cancellation policy in the box above.
+4. If you handle a lot of bookings, or take payments online later, have a lawyer
+   look them over. The rules that apply to personal data in India changed with
+   the Digital Personal Data Protection Act, and a short review is cheap
+   compared with getting it wrong.
+
+---
+
 ## 13. SEO
 
 Everything below is already built. Most of it needs nothing from you.
@@ -340,6 +388,58 @@ Everything below is already built. Most of it needs nothing from you.
 
 The price range Google sees comes from your real room rates. The facilities list
 comes from Admin → Services. Change either one and the search data follows.
+
+### Being found by people searching nearby
+
+This is a different job from ranking for "hotel in Bengaluru", and most of it is
+not code. When somebody searches **hotels near me**, Google answers from the
+map, not from the website. Three things decide who appears: how close the hotel
+is to whoever is searching, how complete and active its **Google Business
+Profile** is, and how many recent reviews it has. Nothing on this website
+outranks those.
+
+What the site does is back the listing up, so Google can see the pin and the
+website are the same business and can match the hotel to the places people
+search near.
+
+| Feature | Where |
+|---------|-------|
+| Business Profile link published as `sameAs` and `hasMap` | Site Settings → Local search |
+| `geo.position`, `ICBM`, `geo.region` meta tags | Layout |
+| Nearby landmarks printed as readable text, with distances | Home and Contact pages |
+| Areas served, listed as `areaServed` | Hotel structured data |
+| "Open 24 hours", payment methods, currency | Hotel structured data |
+| Common questions, answered on the page and as `FAQPage` data | Contact page |
+
+Fill these in at **Admin → Site Settings → Local search**. Everything is
+optional, and any box left empty is simply left off the page.
+
+The **nearby landmarks** box is the one that matters most. Google can only
+connect the hotel to a landmark if that landmark is written on the site in
+plain text, so a search for *"lodge near Bangalore University"* has something to
+match. Write one per line as `Place | distance`:
+
+```
+Bangalore University | 2 km
+RR Nagar Metro Station | 3 km
+Global Village Tech Park | 5 km
+```
+
+Use the names people actually type: stations, colleges, hospitals, tech parks,
+bus stands, temples. Keep the distances honest — a guest who finds the real
+distance is longer than promised leaves the review that undoes the work.
+
+One caveat on the questions: Google now shows FAQ rich results only for
+government and health sites, so do not expect the drop-downs to appear in search
+results. The answers still earn their place, because they are the text Google
+reads when someone asks how far the hotel is from somewhere.
+
+**The part that actually decides it.** Claim and finish the Google Business
+Profile at [business.google.com](https://business.google.com): exact pin, the
+same name, address and phone as this site, the hotel category, real photos,
+opening hours, and this website's address. Then ask departing guests for
+reviews, steadily. A complete profile with recent reviews beats a perfect
+website every time.
 
 ### Three things to do yourself
 

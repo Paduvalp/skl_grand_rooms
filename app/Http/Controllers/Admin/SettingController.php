@@ -19,6 +19,11 @@ class SettingController extends Controller
         'street_address', 'address_locality', 'address_region', 'postal_code',
         'geo_lat', 'geo_lng',
         'ga_measurement_id', 'search_console_code',
+        // Local search ("hotels near me")
+        'google_business_url', 'nearby_landmarks', 'service_areas',
+        'payment_accepted', 'open_24_hours',
+        // Privacy policy and terms pages
+        'cancellation_policy', 'legal_updated_at',
     ];
 
     public function index()
@@ -37,6 +42,7 @@ class SettingController extends Controller
         }
 
         $rules['email'] = ['nullable', 'email', 'max:190'];
+        $rules['google_business_url'] = ['nullable', 'url', 'max:500'];
 
         $data = $request->validate($rules);
 
