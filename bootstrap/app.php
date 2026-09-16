@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\EnsureAdmin::class,
         ]);
 
+        // Notes which campaign or website sent each visitor, so a booking can
+        // be credited to it later.
+        $middleware->web(append: [
+            \App\Http\Middleware\CaptureAttribution::class,
+        ]);
+
         // An already logged-in admin who opens /admin/login lands on the dashboard.
         $middleware->redirectUsersTo('/admin');
     })

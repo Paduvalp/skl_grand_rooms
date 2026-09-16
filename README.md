@@ -485,6 +485,89 @@ people see when the site is shared on WhatsApp.
 
 ---
 
+## 13b. Knowing which advertising actually works
+
+Every booking now records how that guest reached the site, and the admin
+dashboard adds them up. This answers the question every hotel owner asks and
+almost none can prove: *was the money I spent on that advertisement worth it?*
+
+### Tag the links you share
+
+Add tags to the end of any link you put in an advertisement, a social media
+post, a WhatsApp broadcast or an email:
+
+```
+https://sklgrandrooms.com/?utm_source=instagram&utm_medium=social&utm_campaign=diwali
+```
+
+Three tags do almost all the work:
+
+| Tag | What it means | Examples |
+|-----|---------------|----------|
+| `utm_source` | **Where** the link was shared | `google`, `instagram`, `whatsapp`, `justdial` |
+| `utm_medium` | **What kind** of link it was | `cpc` for a paid ad, `social`, `email`, `sms` |
+| `utm_campaign` | **Which push** it belongs to | `diwali`, `monsoon_offer`, `summer2026` |
+
+Two more are stored if you use them: `utm_term` for the search word you bid on,
+and `utm_content` for telling two versions of the same ad apart.
+
+Keep the names short, lower case, and spelled the same way every time.
+`Instagram` and `instagram` are counted as two different sources, and that is
+how a report quietly turns into nonsense.
+
+You can put the tags on any page, not only the home page. Sending a room
+advertisement straight to that room is better:
+
+```
+https://sklgrandrooms.com/rooms/standard-double-room?utm_source=facebook&utm_medium=social&utm_campaign=weekend
+```
+
+### What you see
+
+**Admin → Dashboard** gains two panels:
+
+- **Where bookings come from** — every booking grouped into Paid ads, Social,
+  Search, Email / SMS, Referral or Direct, with a bar, a count, and what each
+  channel earned.
+- **Campaigns** — your ten busiest campaigns, with bookings, value, and the date
+  of the most recent one. Click a campaign name to see its bookings.
+
+**Admin → Bookings** gains a "Came from" column and two filters, so you can ask
+"show me everything the Diwali campaign brought in". Opening any booking shows
+the full detail: source, medium, campaign, ad, search term, the referring site,
+the first page they landed on, and how long they took to decide.
+
+### How the credit is decided
+
+- A link with tags **always wins**, and replaces whatever was remembered. If a
+  guest sees your Instagram post, comes back a week later through a Google ad
+  and books, the Google ad gets the credit. That was the click that worked.
+- Someone arriving **with no tags keeps** the earlier click for **30 days**, so
+  a guest who clicks your ad on Monday and books on Friday is still counted.
+- With nothing remembered, we fall back to the website that referred them, and
+  failing that the booking is **Direct**.
+- **Cancelled bookings still count as bookings but contribute no value**, so a
+  campaign cannot claim money that never arrived.
+
+This is kept in one cookie that only this website can read. Nothing is sent to
+any advertising network. It is disclosed in the Privacy Policy, under Cookies.
+
+### Honest limits
+
+- **Bookings taken before this was switched on show nothing.** There is no way
+  to work out where an old booking came from; the information was never
+  recorded. Those bookings appear as Direct.
+- **A guest who clears cookies, or books from a different device, is counted as
+  Direct.** Every analytics tool in the world has this problem.
+- **WhatsApp, Instagram bios and PDFs often strip tags** from links. If a source
+  you know is working keeps showing as Direct, that is usually why. Use a link
+  shortener that preserves the tags.
+- **Direct is not a failure.** It includes people who saw your board, were told
+  about you by a friend, or simply remembered the name. A hotel with a strong
+  local reputation should expect a large Direct share.
+
+---
+
 ## 14. Messages and the map
 
 ### SweetAlert

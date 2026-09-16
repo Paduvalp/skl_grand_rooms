@@ -101,6 +101,16 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Arrive from a link we shared</strong></td>
+                                        <td>
+                                            The tag on that link saying where it came from, for
+                                            example that it was our Instagram post rather than a
+                                            search result, and the first page you landed on. No
+                                            name is attached to this. See
+                                            <a href="#cookies">cookies</a> below.
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Check a booking</strong></td>
                                         <td>
                                             Your booking reference and the email address you booked
@@ -186,6 +196,26 @@
                             your behalf. Without it the booking form cannot work. It holds no
                             personal information about you and it is not used to follow you around
                             the web.
+                        </p>
+
+                        <h3>Remembering which link brought you here</h3>
+                        <p>
+                            When we share a link to this site, in an advertisement, a social media
+                            post or a message, that link can carry a short tag saying where it came
+                            from. We keep that tag in a second cookie for 30 days, so that if you go
+                            on to book a room we can see which of our own posts or advertisements
+                            actually help people find us.
+                        </p>
+                        <p>
+                            This is about our own advertising, and nothing else. The tag holds no
+                            name and nothing that identifies you. This website is the only site that
+                            can read it, we do not share it with any advertising network, and it is
+                            not used to follow you anywhere else. If you do make a booking, the tag
+                            is stored with that booking so we know which link it came from.
+                        </p>
+                        <p>
+                            Clearing cookies in your browser removes it, and nothing on this site
+                            stops working if you do.
                         </p>
 
                         <h3>Visitor statistics</h3>
