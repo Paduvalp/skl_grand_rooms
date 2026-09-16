@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'About Us')
+@section('title', 'About Our Lodge in Rajarajeshwari Nagar')
 
 @section('meta_description', 'About SKL Grand Rooms, a budget hotel in Kenchenhalli, Rajarajeshwari Nagar, Bengaluru, close to Bangalore University.')
 

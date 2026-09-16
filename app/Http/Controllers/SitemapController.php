@@ -21,6 +21,7 @@ class SitemapController extends Controller
             ['loc' => route('booking'), 'priority' => '0.8', 'freq' => 'monthly'],
             ['loc' => route('about'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => route('services'), 'priority' => '0.6', 'freq' => 'monthly'],
+            ['loc' => route('location'), 'priority' => '0.8', 'freq' => 'monthly'],
             ['loc' => route('contact'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => route('privacy'), 'priority' => '0.3', 'freq' => 'yearly'],
             ['loc' => route('terms'), 'priority' => '0.3', 'freq' => 'yearly'],

@@ -12,6 +12,7 @@
                     <li class="mb-2"><a href="{{ route('about') }}">About</a></li>
                     <li class="mb-2"><a href="{{ route('rooms.index') }}">Rooms</a></li>
                     <li class="mb-2"><a href="{{ route('services') }}">Services</a></li>
+                    <li class="mb-2"><a href="{{ route('location') }}">Location</a></li>
                     <li class="mb-2"><a href="{{ route('contact') }}">Contact Us</a></li>
                     <li class="mb-2"><a href="{{ route('privacy') }}">Privacy Policy</a></li>
                     <li class="mb-2"><a href="{{ route('terms') }}">Terms &amp; Conditions</a></li>

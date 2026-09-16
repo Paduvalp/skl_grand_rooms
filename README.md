@@ -485,6 +485,85 @@ people see when the site is shared on WhatsApp.
 
 ---
 
+## 13a. The keyword plan
+
+A list of 150 keywords is not 150 pages. Google ranks **pages**, and a page
+earns its place by answering one kind of question properly. Thin pages built
+one-per-keyword are the oldest mistake in local SEO and Google has been
+demoting them since 2012.
+
+So the keywords are grouped by what the searcher actually wants, and each group
+is pointed at the page that answers it.
+
+| What they are searching | Where it is answered |
+|---|---|
+| Brand — *SKL Grand Rooms, SKL lodge, sklgrandrooms* | Home page + Google Business Profile |
+| **Near me** — *hotel near me, lodge near me, AC rooms near me* | **Business Profile, not the website** |
+| Area — *hotel in RR Nagar, lodge in Rajarajeshwari Nagar* | Home + Location page |
+| Kenchenhalli — *hotel in Kenchenhalli, Kenchenahalli lodge* | Location page |
+| Nearby areas — *Kengeri, Mysore Road, NICE Road, 560026* | Location page |
+| Outskirts — *hotel outside Bangalore city, away from traffic* | Location page |
+| Clean / good — *clean rooms, good lodge in RR Nagar* | About + reviews on your Profile |
+| Room types — *double, family, deluxe, room for 4* | Individual room pages |
+| Price — *cheap rooms, rooms under ₹1500, budget rooms* | Rooms page + the price in the home page title |
+| Facilities — *AC with geyser, Wi-Fi, parking* | Services page + the facilities FAQ |
+| Landmarks — *near RNSIT, Global Village Tech Park, BGS Global* | Location page landmark list |
+| Guest type — *rooms for hospital visitors, for exam candidates* | "Who we are handy for" section |
+| Booking — *book hotel in RR Nagar online* | Booking page |
+| Questions — *which is the best budget hotel in RR Nagar?* | FAQ, on Contact and Location |
+| Kannada — *ಆರ್ ಆರ್ ನಗರ ಲಾಡ್ಜ್* | Business Profile, see below |
+
+### What was built for this
+
+- **A Location page** at `/location`, linked in the menu and the footer. It is
+  the workhorse: it names Kenchenhalli, RR Nagar (in all four spellings people
+  use), Kengeri, Mysore Road, NICE Road, the PIN code and the outskirts wording,
+  then lists the landmarks and how to reach the hotel by metro, bus and car.
+- **Landmark and area lists** seeded into Site Settings — Global Village Tech
+  Park, RNSIT, Bangalore University, the temple, the hospitals, Kengeri bus
+  stand and metro. These appear on the home, contact and location pages.
+- **A "Who we are handy for" section** covering hospital visitors, parents
+  visiting students, tech park staff, exam candidates and wedding guests.
+- **An expanded FAQ** that now answers price and facilities questions from your
+  live room rates and services, so it can never go out of date.
+- **Page titles rewritten** so each one leads with the phrase that page is for,
+  including the cheapest nightly rate on the home page.
+
+Run the seeder once to fill the settings in. It only writes settings that are
+currently **empty**, so it is safe on the live site and will not overwrite
+anything you have typed:
+
+```
+php artisan db:seed --class=LocalSeoSeeder
+```
+
+### Three things only you can do
+
+1. **Measure the landmark distances.** The list is seeded with names but no
+   distances, because a guessed distance is worse than none. Open Google Maps,
+   measure each one, then in **Admin → Site Settings → Local search** change
+   `Global Village Tech Park` to `Global Village Tech Park | 4 km`. The pages
+   and the FAQ pick it up immediately.
+2. **Write the real directions.** The Location page shows four standard
+   direction cards until you fill in **How to reach us**. Put in the turns you
+   actually give people on the phone.
+3. **Kannada.** The site is in English. Rather than run your words through a
+   translator, which reads badly and can be quietly wrong, put Kannada where it
+   actually gets used: your **Google Business Profile** accepts a Kannada
+   business name and description, and that is what Kannada searches like
+   *ಕೆಂಚೇನಹಳ್ಳಿ ಲಾಡ್ಜ್* return. If you later want Kannada pages on the site, have
+   a Kannada speaker write them.
+
+### Be realistic about "near me"
+
+Six of your fifteen groups are *near me* searches. **These are won in Google
+Maps, not on this website.** Google answers them from proximity, your Business
+Profile and your reviews. Everything above supports that; none of it replaces
+it. The single highest-return hour you can spend is completing your Business
+Profile and asking departing guests for reviews.
+
+---
+
 ## 13b. Knowing which advertising actually works
 
 Every booking now records how that guest reached the site, and the admin
