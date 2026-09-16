@@ -89,6 +89,10 @@
     </div>
 </section>
 
+@include('partials.nearby')
+
+@include('partials.faq')
+
 @endsection
 
 @push('schema')

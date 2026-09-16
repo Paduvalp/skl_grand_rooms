@@ -13,6 +13,8 @@
                     <li class="mb-2"><a href="{{ route('rooms.index') }}">Rooms</a></li>
                     <li class="mb-2"><a href="{{ route('services') }}">Services</a></li>
                     <li class="mb-2"><a href="{{ route('contact') }}">Contact Us</a></li>
+                    <li class="mb-2"><a href="{{ route('privacy') }}">Privacy Policy</a></li>
+                    <li class="mb-2"><a href="{{ route('terms') }}">Terms &amp; Conditions</a></li>
                 </ul>
             </div>
             <div class="col-6 col-lg-3">
@@ -34,8 +36,13 @@
             </div>
         </div>
         <hr class="mt-4" style="border-color: rgba(255,255,255,.15)">
-        <div class="text-center small">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 small">
             <span>&copy; {{ date('Y') }} {{ $settings['site_name'] ?? 'SKL GRAND ROOMS' }}. All rights reserved.</span>
+            <span class="d-flex align-items-center gap-2">
+                <a href="{{ route('privacy') }}">Privacy Policy</a>
+                <span class="opacity-50">|</span>
+                <a href="{{ route('terms') }}">Terms &amp; Conditions</a>
+            </span>
         </div>
     </div>
 </footer>

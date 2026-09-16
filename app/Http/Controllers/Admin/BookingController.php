@@ -21,6 +21,22 @@ class BookingController extends Controller
             $query->where('room_id', $request->input('room_id'));
         }
 
+        // "Direct" means the guest arrived with no campaign tag and no
+        // referring site, so it has to be matched as an absence, not a value.
+        if ($request->filled('source')) {
+            $source = $request->input('source');
+
+            if ($source === '__direct') {
+                $query->whereNull('utm_source')->whereNull('referrer_host');
+            } else {
+                $query->where('utm_source', $source);
+            }
+        }
+
+        if ($request->filled('campaign')) {
+            $query->where('utm_campaign', $request->input('campaign'));
+        }
+
         if ($request->filled('q')) {
             $term = '%'.$request->input('q').'%';
             $query->where(function ($q) use ($term) {
@@ -34,7 +50,15 @@ class BookingController extends Controller
         $bookings = $query->latest()->paginate(15)->withQueryString();
         $rooms = Room::orderBy('name')->get();
 
-        return view('admin.bookings.index', compact('bookings', 'rooms'));
+        // Only the sources and campaigns that actually exist are offered as
+        // filters, so the dropdowns never list something with no bookings.
+        $sources = Booking::whereNotNull('utm_source')
+            ->distinct()->orderBy('utm_source')->pluck('utm_source');
+
+        $campaigns = Booking::whereNotNull('utm_campaign')
+            ->distinct()->orderBy('utm_campaign')->pluck('utm_campaign');
+
+        return view('admin.bookings.index', compact('bookings', 'rooms', 'sources', 'campaigns'));
     }
 
     public function show(Booking $booking)

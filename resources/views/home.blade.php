@@ -106,6 +106,8 @@
     </div>
 </section>
 
+@include('partials.nearby')
+
 <section class="py-5 bg-hnp text-white">
     <div class="container text-center">
         <h2 class="fw-bold mb-2">Ready when you are</h2>

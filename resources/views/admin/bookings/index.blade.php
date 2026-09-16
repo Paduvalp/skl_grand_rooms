@@ -33,6 +33,26 @@
                 <button class="btn btn-hnp flex-grow-1">Filter</button>
                 <a href="{{ route('admin.bookings.index') }}" class="btn btn-outline-secondary">Reset</a>
             </div>
+
+            <div class="col-md-3">
+                <label class="form-label small fw-semibold mb-1">Came from</label>
+                <select name="source" class="form-select">
+                    <option value="">Any source</option>
+                    <option value="__direct" @selected(request('source') === '__direct')>Direct / typed in</option>
+                    @foreach ($sources as $source)
+                        <option value="{{ $source }}" @selected(request('source') === $source)>{{ \App\Support\Attribution::label($source, null, null) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label small fw-semibold mb-1">Campaign</label>
+                <select name="campaign" class="form-select">
+                    <option value="">Any campaign</option>
+                    @foreach ($campaigns as $campaign)
+                        <option value="{{ $campaign }}" @selected(request('campaign') === $campaign)>{{ $campaign }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
     </div>
 </form>
@@ -43,7 +63,7 @@
             <thead class="table-light">
                 <tr>
                     <th>Reference</th><th>Guest</th><th>Room</th><th>Check-in</th><th>Check-out</th>
-                    <th>Nights</th><th>Rooms</th><th>Total</th><th>Status</th><th>Booked on</th><th></th>
+                    <th>Nights</th><th>Rooms</th><th>Total</th><th>Came from</th><th>Status</th><th>Booked on</th><th></th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +81,14 @@
                         <td>{{ $booking->nights }}</td>
                         <td>{{ $booking->rooms_count }}</td>
                         <td class="text-nowrap">&#8377;{{ number_format($booking->total_price, 0) }}</td>
+                        <td>
+                            @php [$channelName, $channelColour] = $booking->channel(); @endphp
+                            <span class="badge {{ $channelColour }}">{{ $channelName }}</span>
+                            <div class="small text-muted">{{ $booking->sourceLabel() }}</div>
+                            @if ($booking->utm_campaign)
+                                <div class="small text-muted fst-italic">{{ $booking->utm_campaign }}</div>
+                            @endif
+                        </td>
                         <td><span class="badge {{ $booking->statusBadgeClass() }}">{{ ucfirst($booking->status) }}</span></td>
                         <td class="small text-muted">{{ $booking->created_at->format('d M Y') }}</td>
                         <td class="text-end text-nowrap">
@@ -75,7 +103,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="11" class="text-center text-muted py-4">No bookings found.</td></tr>
+                    <tr><td colspan="12" class="text-center text-muted py-4">No bookings found.</td></tr>
                 @endforelse
             </tbody>
         </table>
