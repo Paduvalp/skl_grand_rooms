@@ -26,6 +26,14 @@ class Booking extends Model
         'notes',
         'status',
         'admin_remark',
+        'utm_source',
+        'utm_medium',
+        'utm_campaign',
+        'utm_term',
+        'utm_content',
+        'referrer_host',
+        'landing_page',
+        'first_seen_at',
     ];
 
     protected function casts(): array
@@ -34,7 +42,38 @@ class Booking extends Model
             'check_in' => 'date',
             'check_out' => 'date',
             'total_price' => 'decimal:2',
+            'first_seen_at' => 'datetime',
         ];
+    }
+
+    /** Where this booking came from, in words. "Direct" when nothing is known. */
+    public function sourceLabel(): string
+    {
+        return \App\Support\Attribution::label(
+            $this->utm_source,
+            $this->utm_medium,
+            $this->referrer_host
+        );
+    }
+
+    /**
+     * The broad channel this booking belongs to, with a colour for its badge.
+     *
+     * @return array{0: string, 1: string}
+     */
+    public function channel(): array
+    {
+        return \App\Support\Attribution::channel(
+            $this->utm_source,
+            $this->utm_medium,
+            $this->referrer_host
+        );
+    }
+
+    /** True when this booking carries campaign tags we can report on. */
+    public function hasCampaignTags(): bool
+    {
+        return (bool) ($this->utm_source || $this->utm_medium || $this->utm_campaign);
     }
 
     public function room()

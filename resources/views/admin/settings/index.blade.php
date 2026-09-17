@@ -166,6 +166,116 @@
                         </div>
                     </div>
 
+                    <h6 class="fw-bold mt-4">Local search ("hotels near me")</h6>
+                    <p class="text-muted small">
+                        These fields are what make the hotel turn up when somebody
+                        nearby searches. The landmarks are the important one: Google can
+                        only match you to a place if that place is written on your site.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Google Business Profile link</label>
+                            <input type="url" name="google_business_url"
+                                   value="{{ old('google_business_url', $values['google_business_url'] ?? '') }}"
+                                   class="form-control @error('google_business_url') is-invalid @enderror"
+                                   placeholder="https://maps.app.goo.gl/...">
+                            <div class="form-text">
+                                Open your hotel on Google Maps, press Share, and copy the link.
+                                This tells Google that this website and that Maps listing are
+                                the same business.
+                            </div>
+                            @error('google_business_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Nearby landmarks</label>
+                            <textarea name="nearby_landmarks" rows="6" class="form-control"
+                                      placeholder="Bangalore University | 2 km&#10;RR Nagar Metro Station | 3 km&#10;Global Village Tech Park | 5 km">{{ old('nearby_landmarks', $values['nearby_landmarks'] ?? '') }}</textarea>
+                            <div class="form-text">
+                                One per line, written as <code>Place | distance</code>. The
+                                distance part is optional. Use the names people actually
+                                search for: stations, colleges, hospitals, tech parks,
+                                temples, bus stands.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Areas you serve</label>
+                            <textarea name="service_areas" rows="6" class="form-control"
+                                      placeholder="Kenchenhalli&#10;Rajarajeshwari Nagar&#10;Jnanabharathi&#10;Nayandahalli">{{ old('service_areas', $values['service_areas'] ?? '') }}</textarea>
+                            <div class="form-text">
+                                One locality per line. These are the neighbourhoods guests
+                                travel in from.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">How to reach us</label>
+                            <textarea name="how_to_reach" rows="4" class="form-control"
+                                      placeholder="Leave empty to show the standard metro / bus / car / airport directions.">{{ old('how_to_reach', $values['how_to_reach'] ?? '') }}</textarea>
+                            <div class="form-text">
+                                Shown on the Location page. Leave it empty and four standard
+                                direction cards are shown instead. Fill it in with the turns you
+                                actually give people on the phone — that is the version guests
+                                find useful, and the one Google can match to "how to reach"
+                                searches.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Payment accepted</label>
+                            <input type="text" name="payment_accepted"
+                                   value="{{ old('payment_accepted', $values['payment_accepted'] ?? '') }}"
+                                   class="form-control" placeholder="Cash, UPI, Credit Card, Debit Card">
+                            <div class="form-text">Shown in search results as how guests can pay.</div>
+                        </div>
+
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="form-check mt-4">
+                                <input type="hidden" name="open_24_hours" value="">
+                                <input type="checkbox" name="open_24_hours" value="1" id="open_24_hours"
+                                       class="form-check-input"
+                                       @checked(old('open_24_hours', $values['open_24_hours'] ?? '') === '1')>
+                                <label class="form-check-label" for="open_24_hours">
+                                    Reception is open 24 hours
+                                </label>
+                                <div class="form-text">
+                                    Only tick this if it is true. Google shows it as
+                                    "Open 24 hours", and a wrong one costs you guests.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold mt-4">Privacy policy and terms pages</h6>
+                    <p class="text-muted small">
+                        Both pages are already written and linked in the footer. These two
+                        boxes are the parts only you can fill in.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Your cancellation policy</label>
+                            <textarea name="cancellation_policy" rows="4" class="form-control"
+                                      placeholder="Cancel free of charge up to 24 hours before check-in. After that we may charge one night.">{{ old('cancellation_policy', $values['cancellation_policy'] ?? '') }}</textarea>
+                            <div class="form-text">
+                                Shown in section 5 of the Terms page. One paragraph per line.
+                                Leave it empty and a fair general wording is shown instead, but
+                                your own real policy is always better: it is the clause guests
+                                argue about.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Legal pages last updated</label>
+                            <input type="date" name="legal_updated_at"
+                                   value="{{ old('legal_updated_at', $values['legal_updated_at'] ?? '') }}"
+                                   class="form-control">
+                            <div class="form-text">
+                                The date shown at the top of both pages. Change it whenever you
+                                edit the wording.
+                            </div>
+                        </div>
+                    </div>
+
                     <h6 class="fw-bold mt-4">Tracking and verification</h6>
                     <p class="text-muted small">
                         Both are optional and stay switched off until you paste a value in.

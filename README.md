@@ -318,6 +318,54 @@ fields in Site Settings. Say the word if you want them back later.
 
 ---
 
+## 12b. Privacy policy and terms
+
+Two legal pages ship with the site and are linked from the footer, both in the
+Pages column and in the bar along the bottom:
+
+| Page | Address |
+|------|---------|
+| Privacy Policy | `/privacy-policy` |
+| Terms and Conditions | `/terms-and-conditions` |
+
+Each one has a sticky contents list down the side, a plain-English summary box
+at the top, numbered sections, and a "last updated" date. The hotel name,
+address, phone, email and the check-in and check-out times are pulled from Site
+Settings, so they are never out of step with the rest of the site.
+
+The wording describes what this website genuinely does: the booking form takes a
+request rather than a payment, the only details collected are the ones on the
+booking and contact forms, and the analytics paragraph changes on its own
+depending on whether you have entered a Google Analytics ID.
+
+### Two boxes only you can fill in
+
+Go to **Admin → Site Settings → Privacy policy and terms**:
+
+- **Your cancellation policy** — printed as section 5 of the Terms page, one
+  paragraph per line. Leave it empty and a fair general wording appears instead,
+  but put your real policy in. It is the clause guests argue about.
+- **Legal pages last updated** — the date at the top of both pages. Change it
+  whenever you edit the wording.
+
+### Please read them before you go live
+
+These pages are a solid, honest starting point written around how this
+particular site works, and they are far better than the copied-and-pasted
+template most small hotels use. They are **not legal advice**, and nobody has
+checked them against your specific business. Before you launch:
+
+1. Read both pages through as if you were a guest.
+2. Fix anything that is not true of your hotel — the house rules, the quiet
+   hours, whether you take pets, how parking works.
+3. Put your real cancellation policy in the box above.
+4. If you handle a lot of bookings, or take payments online later, have a lawyer
+   look them over. The rules that apply to personal data in India changed with
+   the Digital Personal Data Protection Act, and a short review is cheap
+   compared with getting it wrong.
+
+---
+
 ## 13. SEO
 
 Everything below is already built. Most of it needs nothing from you.
@@ -340,6 +388,58 @@ Everything below is already built. Most of it needs nothing from you.
 
 The price range Google sees comes from your real room rates. The facilities list
 comes from Admin → Services. Change either one and the search data follows.
+
+### Being found by people searching nearby
+
+This is a different job from ranking for "hotel in Bengaluru", and most of it is
+not code. When somebody searches **hotels near me**, Google answers from the
+map, not from the website. Three things decide who appears: how close the hotel
+is to whoever is searching, how complete and active its **Google Business
+Profile** is, and how many recent reviews it has. Nothing on this website
+outranks those.
+
+What the site does is back the listing up, so Google can see the pin and the
+website are the same business and can match the hotel to the places people
+search near.
+
+| Feature | Where |
+|---------|-------|
+| Business Profile link published as `sameAs` and `hasMap` | Site Settings → Local search |
+| `geo.position`, `ICBM`, `geo.region` meta tags | Layout |
+| Nearby landmarks printed as readable text, with distances | Home and Contact pages |
+| Areas served, listed as `areaServed` | Hotel structured data |
+| "Open 24 hours", payment methods, currency | Hotel structured data |
+| Common questions, answered on the page and as `FAQPage` data | Contact page |
+
+Fill these in at **Admin → Site Settings → Local search**. Everything is
+optional, and any box left empty is simply left off the page.
+
+The **nearby landmarks** box is the one that matters most. Google can only
+connect the hotel to a landmark if that landmark is written on the site in
+plain text, so a search for *"lodge near Bangalore University"* has something to
+match. Write one per line as `Place | distance`:
+
+```
+Bangalore University | 2 km
+RR Nagar Metro Station | 3 km
+Global Village Tech Park | 5 km
+```
+
+Use the names people actually type: stations, colleges, hospitals, tech parks,
+bus stands, temples. Keep the distances honest — a guest who finds the real
+distance is longer than promised leaves the review that undoes the work.
+
+One caveat on the questions: Google now shows FAQ rich results only for
+government and health sites, so do not expect the drop-downs to appear in search
+results. The answers still earn their place, because they are the text Google
+reads when someone asks how far the hotel is from somewhere.
+
+**The part that actually decides it.** Claim and finish the Google Business
+Profile at [business.google.com](https://business.google.com): exact pin, the
+same name, address and phone as this site, the hotel category, real photos,
+opening hours, and this website's address. Then ask departing guests for
+reviews, steadily. A complete profile with recent reviews beats a perfect
+website every time.
 
 ### Three things to do yourself
 
@@ -382,6 +482,168 @@ Your Google listing has **no photos**. For a hotel, photos drive more clicks
 than anything on this list. Upload them in Admin → Rooms and on your Google
 Business Profile. The first room photo you upload also becomes the picture
 people see when the site is shared on WhatsApp.
+
+---
+
+## 13a. The keyword plan
+
+A list of 150 keywords is not 150 pages. Google ranks **pages**, and a page
+earns its place by answering one kind of question properly. Thin pages built
+one-per-keyword are the oldest mistake in local SEO and Google has been
+demoting them since 2012.
+
+So the keywords are grouped by what the searcher actually wants, and each group
+is pointed at the page that answers it.
+
+| What they are searching | Where it is answered |
+|---|---|
+| Brand — *SKL Grand Rooms, SKL lodge, sklgrandrooms* | Home page + Google Business Profile |
+| **Near me** — *hotel near me, lodge near me, AC rooms near me* | **Business Profile, not the website** |
+| Area — *hotel in RR Nagar, lodge in Rajarajeshwari Nagar* | Home + Location page |
+| Kenchenhalli — *hotel in Kenchenhalli, Kenchenahalli lodge* | Location page |
+| Nearby areas — *Kengeri, Mysore Road, NICE Road, 560026* | Location page |
+| Outskirts — *hotel outside Bangalore city, away from traffic* | Location page |
+| Clean / good — *clean rooms, good lodge in RR Nagar* | About + reviews on your Profile |
+| Room types — *double, family, deluxe, room for 4* | Individual room pages |
+| Price — *cheap rooms, rooms under ₹1500, budget rooms* | Rooms page + the price in the home page title |
+| Facilities — *AC with geyser, Wi-Fi, parking* | Services page + the facilities FAQ |
+| Landmarks — *near RNSIT, Global Village Tech Park, BGS Global* | Location page landmark list |
+| Guest type — *rooms for hospital visitors, for exam candidates* | "Who we are handy for" section |
+| Booking — *book hotel in RR Nagar online* | Booking page |
+| Questions — *which is the best budget hotel in RR Nagar?* | FAQ, on Contact and Location |
+| Kannada — *ಆರ್ ಆರ್ ನಗರ ಲಾಡ್ಜ್* | Business Profile, see below |
+
+### What was built for this
+
+- **A Location page** at `/location`, linked in the menu and the footer. It is
+  the workhorse: it names Kenchenhalli, RR Nagar (in all four spellings people
+  use), Kengeri, Mysore Road, NICE Road, the PIN code and the outskirts wording,
+  then lists the landmarks and how to reach the hotel by metro, bus and car.
+- **Landmark and area lists** seeded into Site Settings — Global Village Tech
+  Park, RNSIT, Bangalore University, the temple, the hospitals, Kengeri bus
+  stand and metro. These appear on the home, contact and location pages.
+- **A "Who we are handy for" section** covering hospital visitors, parents
+  visiting students, tech park staff, exam candidates and wedding guests.
+- **An expanded FAQ** that now answers price and facilities questions from your
+  live room rates and services, so it can never go out of date.
+- **Page titles rewritten** so each one leads with the phrase that page is for,
+  including the cheapest nightly rate on the home page.
+
+Run the seeder once to fill the settings in. It only writes settings that are
+currently **empty**, so it is safe on the live site and will not overwrite
+anything you have typed:
+
+```
+php artisan db:seed --class=LocalSeoSeeder
+```
+
+### Three things only you can do
+
+1. **Measure the landmark distances.** The list is seeded with names but no
+   distances, because a guessed distance is worse than none. Open Google Maps,
+   measure each one, then in **Admin → Site Settings → Local search** change
+   `Global Village Tech Park` to `Global Village Tech Park | 4 km`. The pages
+   and the FAQ pick it up immediately.
+2. **Write the real directions.** The Location page shows four standard
+   direction cards until you fill in **How to reach us**. Put in the turns you
+   actually give people on the phone.
+3. **Kannada.** The site is in English. Rather than run your words through a
+   translator, which reads badly and can be quietly wrong, put Kannada where it
+   actually gets used: your **Google Business Profile** accepts a Kannada
+   business name and description, and that is what Kannada searches like
+   *ಕೆಂಚೇನಹಳ್ಳಿ ಲಾಡ್ಜ್* return. If you later want Kannada pages on the site, have
+   a Kannada speaker write them.
+
+### Be realistic about "near me"
+
+Six of your fifteen groups are *near me* searches. **These are won in Google
+Maps, not on this website.** Google answers them from proximity, your Business
+Profile and your reviews. Everything above supports that; none of it replaces
+it. The single highest-return hour you can spend is completing your Business
+Profile and asking departing guests for reviews.
+
+---
+
+## 13b. Knowing which advertising actually works
+
+Every booking now records how that guest reached the site, and the admin
+dashboard adds them up. This answers the question every hotel owner asks and
+almost none can prove: *was the money I spent on that advertisement worth it?*
+
+### Tag the links you share
+
+Add tags to the end of any link you put in an advertisement, a social media
+post, a WhatsApp broadcast or an email:
+
+```
+https://sklgrandrooms.com/?utm_source=instagram&utm_medium=social&utm_campaign=diwali
+```
+
+Three tags do almost all the work:
+
+| Tag | What it means | Examples |
+|-----|---------------|----------|
+| `utm_source` | **Where** the link was shared | `google`, `instagram`, `whatsapp`, `justdial` |
+| `utm_medium` | **What kind** of link it was | `cpc` for a paid ad, `social`, `email`, `sms` |
+| `utm_campaign` | **Which push** it belongs to | `diwali`, `monsoon_offer`, `summer2026` |
+
+Two more are stored if you use them: `utm_term` for the search word you bid on,
+and `utm_content` for telling two versions of the same ad apart.
+
+Keep the names short, lower case, and spelled the same way every time.
+`Instagram` and `instagram` are counted as two different sources, and that is
+how a report quietly turns into nonsense.
+
+You can put the tags on any page, not only the home page. Sending a room
+advertisement straight to that room is better:
+
+```
+https://sklgrandrooms.com/rooms/standard-double-room?utm_source=facebook&utm_medium=social&utm_campaign=weekend
+```
+
+### What you see
+
+**Admin → Dashboard** gains two panels:
+
+- **Where bookings come from** — every booking grouped into Paid ads, Social,
+  Search, Email / SMS, Referral or Direct, with a bar, a count, and what each
+  channel earned.
+- **Campaigns** — your ten busiest campaigns, with bookings, value, and the date
+  of the most recent one. Click a campaign name to see its bookings.
+
+**Admin → Bookings** gains a "Came from" column and two filters, so you can ask
+"show me everything the Diwali campaign brought in". Opening any booking shows
+the full detail: source, medium, campaign, ad, search term, the referring site,
+the first page they landed on, and how long they took to decide.
+
+### How the credit is decided
+
+- A link with tags **always wins**, and replaces whatever was remembered. If a
+  guest sees your Instagram post, comes back a week later through a Google ad
+  and books, the Google ad gets the credit. That was the click that worked.
+- Someone arriving **with no tags keeps** the earlier click for **30 days**, so
+  a guest who clicks your ad on Monday and books on Friday is still counted.
+- With nothing remembered, we fall back to the website that referred them, and
+  failing that the booking is **Direct**.
+- **Cancelled bookings still count as bookings but contribute no value**, so a
+  campaign cannot claim money that never arrived.
+
+This is kept in one cookie that only this website can read. Nothing is sent to
+any advertising network. It is disclosed in the Privacy Policy, under Cookies.
+
+### Honest limits
+
+- **Bookings taken before this was switched on show nothing.** There is no way
+  to work out where an old booking came from; the information was never
+  recorded. Those bookings appear as Direct.
+- **A guest who clears cookies, or books from a different device, is counted as
+  Direct.** Every analytics tool in the world has this problem.
+- **WhatsApp, Instagram bios and PDFs often strip tags** from links. If a source
+  you know is working keeps showing as Direct, that is usually why. Use a link
+  shortener that preserves the tags.
+- **Direct is not a failure.** It includes people who saw your board, were told
+  about you by a friend, or simply remembered the name. A hotel with a strong
+  local reputation should expect a large Direct share.
 
 ---
 

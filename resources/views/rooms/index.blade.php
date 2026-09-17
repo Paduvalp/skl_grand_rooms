@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Rooms and Rates')
+@section('title', 'Rooms and Rates in RR Nagar, Bengaluru')
 
-@section('meta_description', 'See every room at SKL Grand Rooms with nightly rates, bed sizes and how many guests each one takes. Filter by guests and budget.')
+@section('meta_description', 'Double, family and deluxe AC rooms in RR Nagar, Bengaluru with nightly rates, bed sizes and guest limits. Filter by guests and budget, book online.')
 
 @section('content')
 

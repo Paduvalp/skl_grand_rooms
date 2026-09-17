@@ -71,6 +71,105 @@
     </div>
 </div>
 
+<div class="row g-4 mb-4">
+    <div class="col-lg-5">
+        <div class="card stat-card h-100">
+            <div class="card-header bg-white">
+                <strong>Where bookings come from</strong>
+            </div>
+            <div class="card-body">
+                @if ($channels->isEmpty())
+                    <p class="text-muted small mb-0">No bookings yet.</p>
+                @else
+                    @php $maxBookings = max($channels->max('bookings'), 1); @endphp
+
+                    @foreach ($channels as $channel)
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span>
+                                    <span class="badge {{ $channel['colour'] }}">{{ $channel['name'] }}</span>
+                                </span>
+                                <span class="small">
+                                    <strong>{{ $channel['bookings'] }}</strong>
+                                    <span class="text-muted">
+                                        {{ \Illuminate\Support\Str::plural('booking', $channel['bookings']) }}
+                                        &middot; &#8377;{{ number_format($channel['value'], 0) }}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="progress" style="height:6px">
+                                <div class="progress-bar bg-hnp"
+                                     style="width: {{ round($channel['bookings'] / $maxBookings * 100) }}%"></div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <hr>
+                    <p class="small text-muted mb-0">
+                        {{ $taggedCount }} of {{ $totalTracked }}
+                        {{ \Illuminate\Support\Str::plural('booking', $totalTracked) }}
+                        arrived through a tagged link.
+                        @if ($taggedCount === 0)
+                            Add <code>?utm_source=…</code> to the links you share and they will
+                            start showing up here.
+                        @endif
+                    </p>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card stat-card h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <strong>Campaigns</strong>
+                <span class="small text-muted">{{ $recentTagged }} tagged in the last 30 days</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Campaign</th><th>Source</th><th class="text-end">Bookings</th>
+                            <th class="text-end">Value</th><th class="text-end">Last one</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($campaigns as $campaign)
+                            <tr>
+                                <td class="small fw-semibold">
+                                    <a href="{{ route('admin.bookings.index', ['campaign' => $campaign->utm_campaign]) }}">
+                                        {{ $campaign->utm_campaign }}
+                                    </a>
+                                </td>
+                                <td class="small text-muted">
+                                    {{ \App\Support\Attribution::label($campaign->utm_source, null, null) }}
+                                    @if ($campaign->utm_medium)
+                                        <span class="fst-italic">/ {{ $campaign->utm_medium }}</span>
+                                    @endif
+                                </td>
+                                <td class="text-end">{{ $campaign->bookings }}</td>
+                                <td class="text-end text-nowrap">&#8377;{{ number_format($campaign->value, 0) }}</td>
+                                <td class="text-end small text-muted text-nowrap">
+                                    {{ \Illuminate\Support\Carbon::parse($campaign->last_booking)->format('d M Y') }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-muted py-4 px-3 small">
+                                    No campaign has brought a booking yet. Tag the links you share,
+                                    for example
+                                    <code>{{ url('/') }}/?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=diwali</code>,
+                                    and each campaign will be listed here with what it earned.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card stat-card">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <strong>Latest bookings</strong>

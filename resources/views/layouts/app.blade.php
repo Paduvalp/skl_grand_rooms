@@ -45,6 +45,11 @@
     <meta name="twitter:title" content="{{ $fullTitle }}">
     <meta name="twitter:description" content="{{ $metaDescription }}">
 
+    {{-- Where the hotel physically is. Read by Bing and by local directories. --}}
+    @foreach (\App\Support\Seo::geoMeta($settings) as $geoName => $geoValue)
+        <meta name="{{ $geoName }}" content="{{ $geoValue }}">
+    @endforeach
+
     @if (!empty($settings['search_console_code']))
         <meta name="google-site-verification" content="{{ $settings['search_console_code'] }}">
     @endif

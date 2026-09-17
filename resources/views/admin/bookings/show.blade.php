@@ -37,6 +37,84 @@
                 @endif
             </div>
         </div>
+
+        @php [$channelName, $channelColour] = $booking->channel(); @endphp
+
+        <div class="card stat-card mt-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <strong>Where this booking came from</strong>
+                <span class="badge {{ $channelColour }}">{{ $channelName }}</span>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <span class="text-muted">Source</span>
+                    <strong>{{ $booking->sourceLabel() }}</strong>
+                </div>
+
+                @if ($booking->utm_medium)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">Medium</span><strong>{{ $booking->utm_medium }}</strong>
+                    </div>
+                @endif
+
+                @if ($booking->utm_campaign)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">Campaign</span><strong>{{ $booking->utm_campaign }}</strong>
+                    </div>
+                @endif
+
+                @if ($booking->utm_content)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">Ad / content</span><strong>{{ $booking->utm_content }}</strong>
+                    </div>
+                @endif
+
+                @if ($booking->utm_term)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">Search term</span><strong>{{ $booking->utm_term }}</strong>
+                    </div>
+                @endif
+
+                @if ($booking->referrer_host)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">Referred by</span><strong>{{ $booking->referrer_host }}</strong>
+                    </div>
+                @endif
+
+                @if ($booking->landing_page)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">First page seen</span><strong>{{ $booking->landing_page }}</strong>
+                    </div>
+                @endif
+
+                @if ($booking->first_seen_at)
+                    <div class="d-flex justify-content-between py-2">
+                        <span class="text-muted">First visited</span>
+                        <strong>
+                            {{ $booking->first_seen_at->format('d M Y, h:i A') }}
+                            <span class="text-muted fw-normal small">
+                                ({{ $booking->first_seen_at->diffForHumans($booking->created_at, true) }} before booking)
+                            </span>
+                        </strong>
+                    </div>
+                @endif
+
+                @if (! $booking->hasCampaignTags() && ! $booking->referrer_host)
+                    <p class="small text-muted mb-0 mt-2">
+                        This guest arrived without any campaign tag and without a referring
+                        website. They typed the address in, used a bookmark, or came from a
+                        link that strips tags, such as a WhatsApp message or a PDF.
+                    </p>
+                @endif
+
+                @if ($booking->created_at < \Carbon\Carbon::parse('2026-09-16'))
+                    <p class="small text-muted mb-0 mt-2">
+                        <i class="bi bi-info-circle me-1"></i>This booking was taken before
+                        source tracking was switched on, so nothing was recorded for it.
+                    </p>
+                @endif
+            </div>
+        </div>
     </div>
 
     <div class="col-lg-5">

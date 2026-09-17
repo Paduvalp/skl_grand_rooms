@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Book a Room')
+@section('title', 'Book a Room Online in RR Nagar, Bengaluru')
 
 @section('meta_description', 'Book a room at SKL Grand Rooms, RR Nagar, Bengaluru. Pick your dates, get a booking reference straight away, no payment needed now.')
 

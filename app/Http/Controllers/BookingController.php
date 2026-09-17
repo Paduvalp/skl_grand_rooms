@@ -82,6 +82,10 @@ class BookingController extends Controller
         }
 
         $booking = Booking::create([
+            // Where this guest came from, remembered from the link they
+            // first arrived on. Empty for somebody who typed the address in.
+            ...\App\Support\Attribution::forBooking($request),
+
             'reference' => Booking::makeReference(),
             'room_id' => $room->id,
             'customer_name' => $data['customer_name'],
