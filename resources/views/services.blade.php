@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Hotel Facilities')
+@section('title', 'AC Rooms, Geyser, Wi-Fi and Parking in RR Nagar')
 
 @section('meta_description', 'Air conditioning, hot water geyser, free Wi-Fi, TV and on-site parking. Everything our guests in RR Nagar, Bengaluru get.')
 

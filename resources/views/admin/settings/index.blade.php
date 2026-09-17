@@ -209,6 +209,19 @@
                             </div>
                         </div>
 
+                        <div class="col-12">
+                            <label class="form-label">How to reach us</label>
+                            <textarea name="how_to_reach" rows="4" class="form-control"
+                                      placeholder="Leave empty to show the standard metro / bus / car / airport directions.">{{ old('how_to_reach', $values['how_to_reach'] ?? '') }}</textarea>
+                            <div class="form-text">
+                                Shown on the Location page. Leave it empty and four standard
+                                direction cards are shown instead. Fill it in with the turns you
+                                actually give people on the phone — that is the version guests
+                                find useful, and the one Google can match to "how to reach"
+                                searches.
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <label class="form-label">Payment accepted</label>
                             <input type="text" name="payment_accepted"

@@ -371,13 +371,35 @@ class Seo
             ];
         }
 
+        // "rooms under 2000", "cheap rooms in RR Nagar" and the rest are all
+        // really the same question, answered from the live room rates.
+        if ($range = self::priceRange()) {
+            $faqs[] = [
+                'question' => 'How much does a room cost at '.$name.'?',
+                'answer' => 'Rooms are '.$range.' per night, depending on the room type and how many guests. '
+                    .'The rate for each room is shown on the rooms page, and nothing is charged until you arrive.',
+            ];
+        }
+
+        // Answered from the facilities the admin has switched on, so it can
+        // never claim something the hotel does not have.
+        $facilities = self::amenityNames();
+
+        if ($facilities) {
+            $faqs[] = [
+                'question' => 'What facilities does '.$name.' have?',
+                'answer' => 'Every stay includes '.self::sentenceList($facilities).'.',
+            ];
+        }
+
         $in = trim((string) ($s['checkin_time'] ?? ''));
         $out = trim((string) ($s['checkout_time'] ?? ''));
 
         if ($in !== '' && $out !== '') {
             $faqs[] = [
-                'question' => 'What are the check-in and check-out times?',
-                'answer' => 'Check-in is from '.$in.' and check-out is by '.$out.'.',
+                'question' => 'What are the check-in and check-out times at '.$name.'?',
+                'answer' => 'Check-in is from '.$in.' and check-out is by '.$out.'. '
+                    .'Every adult guest needs to bring a valid government photo ID.',
             ];
         }
 
@@ -441,6 +463,37 @@ class Seo
         }
 
         return $meta;
+    }
+
+    /**
+     * The facilities the admin has switched on, as plain names.
+     *
+     * @return array<int, string>
+     */
+    public static function amenityNames(): array
+    {
+        try {
+            return Service::where('is_active', true)
+                ->orderBy('sort_order')
+                ->pluck('title')
+                ->all();
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
+
+    /** ['a', 'b', 'c'] becomes "a, b and c", so answers read like English. */
+    private static function sentenceList(array $items): string
+    {
+        $items = array_values(array_filter(array_map('trim', $items)));
+
+        if (count($items) <= 1) {
+            return (string) ($items[0] ?? '');
+        }
+
+        $last = array_pop($items);
+
+        return implode(', ', $items).' and '.$last;
     }
 
     /**

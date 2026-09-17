@@ -24,6 +24,25 @@ class PageController extends Controller
     }
 
     /**
+     * "Where we are and how to reach us."
+     *
+     * This is the page that answers the area searches: RR Nagar, Kenchenhalli,
+     * Kengeri, Mysore Road, and the landmarks people navigate by. It exists so
+     * those places are written on the site in readable text, which is the only
+     * way Google can match the hotel to them.
+     */
+    public function location()
+    {
+        $services = Service::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        $fromPrice = Room::where('is_active', true)->min('price');
+
+        return view('location', compact('services', 'fromPrice'));
+    }
+
+    /**
      * The date shown at the top of the legal pages.
      *
      * The admin can set it in Site Settings whenever the wording changes.

@@ -20,6 +20,11 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        return view('home', compact('featuredRooms', 'services'));
+        // Shown in the page title, so the cheapest rate appears in Google
+        // results. People searching "rooms under 1500" can see it without
+        // clicking, which is what earns the click.
+        $fromPrice = Room::where('is_active', true)->min('price');
+
+        return view('home', compact('featuredRooms', 'services', 'fromPrice'));
     }
 }

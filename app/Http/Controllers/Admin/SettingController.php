@@ -24,6 +24,8 @@ class SettingController extends Controller
         'payment_accepted', 'open_24_hours',
         // Privacy policy and terms pages
         'cancellation_policy', 'legal_updated_at',
+        // Location page
+        'how_to_reach',
     ];
 
     public function index()

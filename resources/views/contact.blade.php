@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Contact Us')
+@section('title', 'Contact Us in Kenchenhalli, RR Nagar')
 
 @section('meta_description', 'Call or write to SKL Grand Rooms in Kenchenhalli, Rajarajeshwari Nagar, Bengaluru. Address, phone number and map.')
 
