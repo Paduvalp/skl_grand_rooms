@@ -32,7 +32,7 @@ class LocalSeoSeeder extends Seeder
             'address_region' => 'Karnataka',
             'postal_code' => '560026',
 
-            'meta_description' => 'Budget hotel in Kenchenhalli, RR Nagar, Bengaluru. Clean AC rooms with geyser, free Wi-Fi, TV and parking, near Kengeri and Mysore Road. Book online.',
+            'meta_description' => 'Rooms in RR Nagar, Bengaluru - Kenchenhalli. Clean AC rooms with geyser, free Wi-Fi, TV and parking, near Kengeri and Mysore Road. Book online.',
 
             // Add "| distance" to each line once you have measured it, for
             // example "Kengeri Metro Station | 3 km".
