@@ -37,7 +37,7 @@ class SettingSeeder extends Seeder
 
             // CHECK - this is a safe starting draft. Replace it with your own
             // words from Admin > Site Settings.
-            'about_text' => "SKL Grand Rooms is a budget hotel in Kenchenhalli, Rajarajeshwari Nagar, Bengaluru. We keep things simple and do the basics well: a clean, air conditioned room, a hot water geyser, free Wi-Fi, a TV, and parking for your vehicle.\n\nThe hotel is a short drive from Bangalore University and the Mysore Road side of the city, which makes it easy for students, families visiting them, and people here for work.\n\nIf you need anything during your stay, just ask at the front desk.",
+            'about_text' => "SKL Grand Rooms offers clean, comfortable rooms in RR Nagar - Kenchenhalli, Rajarajeshwari Nagar, Bengaluru. We keep things simple and do the basics well: a clean, air conditioned room, a hot water geyser, free Wi-Fi, a TV, and parking for your vehicle.\n\nThe hotel is a short drive from Bangalore University and the Mysore Road side of the city, which makes it easy for students, families visiting them, and people here for work.\n\nIf you need anything during your stay, just ask at the front desk.",
 
             'about_points' => 'Kenchenhalli, RR Nagar location, Close to Bangalore University, Air conditioned rooms, Hot water geyser in every room, Free Wi-Fi, TV in every room, Parking on site',
 
@@ -51,7 +51,7 @@ class SettingSeeder extends Seeder
 
             // Shown under the page title in Google results. Keep it under
             // about 155 characters or Google cuts it off.
-            'meta_description' => 'Budget hotel in Kenchenhalli, RR Nagar, Bengaluru. AC rooms with geyser, free Wi-Fi, TV and parking. Book online in a minute.',
+            'meta_description' => 'Rooms in RR Nagar, Bengaluru - Kenchenhalli. AC rooms with geyser, free Wi-Fi, TV and parking. Book online in a minute.',
 
             // The address split up, so Google can read it properly.
             'street_address' => 'Kenchenhalli, Rajarajeshwari Nagar',

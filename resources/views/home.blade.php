@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Budget Hotel in RR Nagar, Bengaluru'.(!empty($fromPrice) ? ' | AC Rooms from ₹'.number_format((float) $fromPrice, 0) : ''))
+@section('title', 'Rooms in RR Nagar, Bengaluru'.(!empty($fromPrice) ? ' | AC Rooms from ₹'.number_format((float) $fromPrice, 0) : ''))
 
 @section('meta_description', 'Clean AC rooms with geyser, free Wi-Fi, TV and parking in Kenchenhalli, RR Nagar, Bengaluru. Near Kengeri and Mysore Road. Book online in a minute.')
 
