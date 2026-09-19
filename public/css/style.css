@@ -249,3 +249,6 @@ body.has-wa-float .site-footer { padding-bottom: 5.5rem; }
 @media (max-width: 575.98px) {
     .row.g-5 { --bs-gutter-x: 1.5rem; }
 }
+
+/* Home banner buttons: same width when stacked on phones. */
+.hero-actions .btn { min-width: 210px; }
