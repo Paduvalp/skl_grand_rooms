@@ -229,7 +229,10 @@ class Seo
     public static function roomPrices(): ?array
     {
         try {
-            $prices = Cache::remember('seo.room_prices', now()->addDay(), function () {
+            // Saving a room in the admin clears this at once. The short life
+            // covers rooms edited straight in the database (phpMyAdmin),
+            // which the admin never hears about.
+            $prices = Cache::remember('seo.room_prices', now()->addMinutes(10), function () {
                 $row = Room::where('is_active', true)
                     ->selectRaw('MIN(price) as min_price, MAX(price) as max_price')
                     ->first();

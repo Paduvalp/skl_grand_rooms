@@ -14,8 +14,10 @@
         <p class="lead mx-auto mb-4" style="max-width:640px">
             {{ $settings['hero_subtitle'] ?? 'Clean rooms, friendly staff and honest prices in RR Nagar, near Mysore Road.' }}
         </p>
-        <a href="{{ route('booking') }}" class="btn btn-accent btn-lg px-4 me-2">Book a Room</a>
-        <a href="{{ route('rooms.index') }}" class="btn btn-outline-light btn-lg px-4">See Our Rooms</a>
+        <div class="hero-actions d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
+            <a href="{{ route('booking') }}" class="btn btn-accent btn-lg px-4">Book a Room</a>
+            <a href="{{ route('rooms.index') }}" class="btn btn-outline-light btn-lg px-4">See Our Rooms</a>
+        </div>
     </div>
 </section>
 
