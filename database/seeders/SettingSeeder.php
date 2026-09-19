@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
             'tagline' => 'Clean, comfortable rooms in RR Nagar, Bengaluru',
 
             'hero_title' => 'A comfortable stay in Rajarajeshwari Nagar',
-            'hero_subtitle' => 'Clean rooms, friendly staff and honest prices, close to Bangalore University and the Mysore Road metro. Book your room in under a minute.',
+            'hero_subtitle' => 'Clean rooms, friendly staff and honest prices in RR Nagar, near Mysore Road. Book your room in under a minute.',
 
             // From the Google Maps listing
             'phone' => '+91 78991 56936',
@@ -45,7 +45,14 @@ class SettingSeeder extends Seeder
             'checkin_time' => '2:00 PM',
             'checkout_time' => '12:00 PM',
 
-            'footer_text' => 'SKL Grand Rooms - a clean and comfortable place to stay in Rajarajeshwari Nagar, Bengaluru.',
+            'footer_text' => 'SKL Grand Rooms — a quiet, comfortable stay in RR Nagar, Bengaluru.',
+
+            // Digits only with country code, e.g. 919876543210. Empty means
+            // the WhatsApp button uses the phone number above.
+            'whatsapp_number' => '',
+
+            // Named in the "By metro" directions on the Location page.
+            'nearest_metro' => 'Jnanabharathi',
 
             // ---------- SEO ----------
 
@@ -62,8 +69,8 @@ class SettingSeeder extends Seeder
             // CHECK - map pin. On Google Maps, right click the hotel and
             // click the numbers that appear. Paste them here. Leave blank
             // and the map pin is simply left out of the search data.
-            'geo_lat' => '',
-            'geo_lng' => '',
+            'geo_lat' => '12.934789',
+            'geo_lng' => '77.5112355',
 
             // CHECK - paste these in when you set up the accounts.
             // Google Analytics 4 measurement ID, looks like G-XXXXXXXXXX

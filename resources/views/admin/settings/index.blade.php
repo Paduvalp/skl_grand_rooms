@@ -73,6 +73,17 @@
                         <input type="text" name="phone" value="{{ old('phone', $values['phone'] ?? '') }}" class="form-control">
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">WhatsApp number</label>
+                        <input type="text" name="whatsapp_number" inputmode="numeric"
+                               value="{{ old('whatsapp_number', $values['whatsapp_number'] ?? '') }}"
+                               class="form-control @error('whatsapp_number') is-invalid @enderror" placeholder="919876543210">
+                        <div class="form-text">
+                            Digits only, with the country code (91) and no + or spaces. Used by the
+                            green chat button on every page. Leave empty to use the phone number above.
+                        </div>
+                        @error('whatsapp_number')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" name="email" value="{{ old('email', $values['email'] ?? '') }}"
                                class="form-control @error('email') is-invalid @enderror">
@@ -219,6 +230,17 @@
                                 actually give people on the phone — that is the version guests
                                 find useful, and the one Google can match to "how to reach"
                                 searches.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Nearest metro station</label>
+                            <input type="text" name="nearest_metro"
+                                   value="{{ old('nearest_metro', $values['nearest_metro'] ?? '') }}"
+                                   class="form-control" placeholder="Jnanabharathi">
+                            <div class="form-text">
+                                Purple Line station named in the "By metro" directions on the
+                                Location page. Just the name, without "metro station".
                             </div>
                         </div>
 

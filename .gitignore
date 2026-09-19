@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 /vendor/
-node_modules/
+/node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -8,41 +7,26 @@ yarn-error.log
 bootstrap/compiled.php
 app/storage/
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
-
-storage/*.key
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
-
-/public/build
-/storage/pail
-.env.backup
-.env.production
-.phpactor.json
-auth.json
-=======
-/node_modules
+# Laravel
 /public/build
 /public/hot
 /public/storage
+public_html/storage
+public_html/hot
 /storage/*.key
-/vendor
+/storage/pail
+
+# Photos uploaded from Admin > Gallery live only on the server
+/public/uploads/gallery/
+
 .env
 .env.backup
+.env.production
 .phpunit.result.cache
+.phpactor.json
+auth.json
 Homestead.json
 Homestead.yaml
-npm-debug.log
-yarn-error.log
+/.vagrant
 /.idea
 /.vscode
->>>>>>> origin/master-shashi

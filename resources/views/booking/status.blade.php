@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Check Booking')
-@section('robots', 'noindex, follow')
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 
