@@ -76,7 +76,7 @@
         </script>
     @endif
 </head>
-<body>
+<body class="{{ \App\Support\WhatsApp::number($settings) ? 'has-wa-float' : '' }}">
 
 @include('partials.nav')
 
@@ -85,6 +85,8 @@
 </main>
 
 @include('partials.footer')
+
+@include('partials.whatsapp', ['whatsappRoom' => trim($__env->yieldContent('whatsapp_room')) ?: null])
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>

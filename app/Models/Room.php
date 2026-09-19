@@ -35,6 +35,16 @@ class Room extends Model
         ];
     }
 
+    /**
+     * Price range, "from" price and the sitemap are cached. Any change to a
+     * room - from the admin panel or from tinker - clears them.
+     */
+    protected static function booted(): void
+    {
+        static::saved(fn () => \App\Support\Seo::forgetRoomCache());
+        static::deleted(fn () => \App\Support\Seo::forgetRoomCache());
+    }
+
     public function bookings()
     {
         return $this->hasMany(Booking::class);

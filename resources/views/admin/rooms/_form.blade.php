@@ -61,6 +61,10 @@
                     <label class="form-label">Guests per room <span class="text-danger">*</span></label>
                     <input type="number" name="capacity" min="1" max="20" value="{{ old('capacity', $room->capacity ?? 2) }}"
                            class="form-control @error('capacity') is-invalid @enderror" required>
+                    <div class="form-text">Should fit the beds: a single bed sleeps 1, a double, queen or king bed sleeps 2.</div>
+                    <div class="form-text text-warning-emphasis d-none" id="capacityWarning">
+                        <i class="bi bi-exclamation-triangle me-1"></i><span></span>
+                    </div>
                     @error('capacity')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="mb-3">
@@ -116,3 +120,51 @@
         <a href="{{ route('admin.rooms.index') }}" class="btn btn-link w-100 text-muted">Cancel</a>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    // A gentle check that "guests per room" fits the bed setup. It only
+    // warns - some rooms genuinely take an extra mattress.
+    (function () {
+        var capacity = document.querySelector('input[name="capacity"]');
+        var bed = document.querySelector('input[name="bed_type"]');
+        var warning = document.getElementById('capacityWarning');
+
+        if (!capacity || !bed || !warning) {
+            return;
+        }
+
+        function sleeps(text) {
+            var total = 0;
+
+            text.toLowerCase().split(/,|\+|\band\b/).forEach(function (part) {
+                var match = part.match(/(\d+)?\s*(single|twin|double|queen|king)/);
+
+                if (match) {
+                    var count = parseInt(match[1] || '1', 10);
+                    total += count * (match[2] === 'single' || match[2] === 'twin' ? 1 : 2);
+                }
+            });
+
+            return total;
+        }
+
+        function check() {
+            var fits = sleeps(bed.value);
+            var guests = parseInt(capacity.value, 10);
+            var show = fits > 0 && guests > fits;
+
+            warning.classList.toggle('d-none', !show);
+
+            if (show) {
+                warning.querySelector('span').textContent =
+                    '"' + bed.value + '" usually sleeps ' + fits + '. Is ' + guests + ' guests right?';
+            }
+        }
+
+        capacity.addEventListener('input', check);
+        bed.addEventListener('input', check);
+        check();
+    })();
+</script>
+@endpush

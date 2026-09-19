@@ -3,7 +3,7 @@
         <div class="row g-4">
             <div class="col-lg-4">
                 <h6 class="mb-3">{{ $settings['site_name'] ?? 'SKL GRAND ROOMS' }}</h6>
-                <p class="small mb-0">{{ $settings['footer_text'] ?? 'A comfortable place to stay.' }}</p>
+                <p class="small mb-0">{{ $settings['footer_text'] ?? 'SKL Grand Rooms — a quiet, comfortable stay in RR Nagar, Bengaluru.' }}</p>
             </div>
             <div class="col-6 col-lg-2">
                 <h6 class="mb-3">Pages</h6>
@@ -12,6 +12,7 @@
                     <li class="mb-2"><a href="{{ route('about') }}">About</a></li>
                     <li class="mb-2"><a href="{{ route('rooms.index') }}">Rooms</a></li>
                     <li class="mb-2"><a href="{{ route('services') }}">Services</a></li>
+                    <li class="mb-2"><a href="{{ route('gallery') }}">Gallery</a></li>
                     <li class="mb-2"><a href="{{ route('location') }}">Location</a></li>
                     <li class="mb-2"><a href="{{ route('contact') }}">Contact Us</a></li>
                     <li class="mb-2"><a href="{{ route('privacy') }}">Privacy Policy</a></li>

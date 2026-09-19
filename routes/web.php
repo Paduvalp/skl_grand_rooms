@@ -4,11 +4,14 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RoomController;
@@ -29,6 +32,7 @@ Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
 Route::get('/rooms/{room}', [RoomController::class, 'show'])->name('rooms.show');
 
 Route::get('/location', [PageController::class, 'location'])->name('location');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms');
@@ -48,8 +52,8 @@ Route::post('/booking/status', [BookingController::class, 'statusLookup'])->name
 |--------------------------------------------------------------------------
 */
 
+// robots.txt is the static file public/robots.txt.
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
-Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +81,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('bookings/{booking}', [AdminBookingController::class, 'destroy'])->name('bookings.destroy');
 
         Route::resource('services', AdminServiceController::class)->except('show');
+
+        Route::get('gallery', [AdminGalleryController::class, 'index'])->name('gallery.index');
+        Route::post('gallery', [AdminGalleryController::class, 'store'])->name('gallery.store');
+        Route::put('gallery/{gallery}', [AdminGalleryController::class, 'update'])->name('gallery.update');
+        Route::patch('gallery/{gallery}/toggle', [AdminGalleryController::class, 'toggle'])->name('gallery.toggle');
+        Route::delete('gallery/{gallery}', [AdminGalleryController::class, 'destroy'])->name('gallery.destroy');
+
+        Route::resource('reviews', AdminReviewController::class)->except('show');
 
         Route::get('messages', [AdminContactController::class, 'index'])->name('messages.index');
         Route::get('messages/{contact}', [AdminContactController::class, 'show'])->name('messages.show');

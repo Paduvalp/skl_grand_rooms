@@ -4,7 +4,8 @@ namespace App\Support;
 
 use App\Models\Room;
 use App\Models\Service;
-
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Builds the structured data (JSON-LD) that Google reads.
@@ -80,19 +81,16 @@ class Seo
             $data['priceRange'] = $range;
         }
 
-        if (! empty($s['checkin_time'])) {
-            $data['checkinTime'] = $s['checkin_time'];
+        // Settings hold "12:00 PM" for people to read. Schema wants 24 hour time.
+        if ($in = self::isoTime($s['checkin_time'] ?? null)) {
+            $data['checkinTime'] = $in;
         }
 
-        if (! empty($s['checkout_time'])) {
-            $data['checkoutTime'] = $s['checkout_time'];
+        if ($out = self::isoTime($s['checkout_time'] ?? null)) {
+            $data['checkoutTime'] = $out;
         }
 
-        $amenities = self::amenities();
-
-        if ($amenities) {
-            $data['amenityFeature'] = $amenities;
-        }
+        $data['amenityFeature'] = self::amenities();
 
         // The Google Business Profile / Maps listing. Tying the website and
         // the Maps pin together is the strongest on-page signal that the two
@@ -211,39 +209,95 @@ class Seo
         ];
     }
 
-    /** Lowest to highest nightly rate, shown to Google as a price band. */
-    private static function priceRange(): ?string
+    /** Cache keys that depend on room rates. Cleared whenever a room changes. */
+    public const ROOM_CACHE_KEYS = ['seo.room_prices', 'sitemap.xml'];
+
+    /** Forget everything worked out from the rooms table. */
+    public static function forgetRoomCache(): void
     {
-        try {
-            $min = Room::where('is_active', true)->min('price');
-            $max = Room::where('is_active', true)->max('price');
-        } catch (\Throwable $e) {
-            return null;
+        foreach (self::ROOM_CACHE_KEYS as $key) {
+            Cache::forget($key);
         }
-
-        if (! $min) {
-            return null;
-        }
-
-        return $min == $max
-            ? '₹'.number_format((float) $min, 0)
-            : '₹'.number_format((float) $min, 0).' - ₹'.number_format((float) $max, 0);
     }
 
-    /** Hotel facilities, taken from the Services the admin has switched on. */
-    private static function amenities(): array
+    /**
+     * Lowest and highest nightly rate of the rooms shown on the website.
+     * Hidden rooms are left out, so the range always matches the rooms page.
+     *
+     * @return array{min: float, max: float}|null
+     */
+    public static function roomPrices(): ?array
     {
         try {
-            $services = Service::where('is_active', true)->orderBy('sort_order')->pluck('title');
+            $prices = Cache::remember('seo.room_prices', now()->addDay(), function () {
+                $row = Room::where('is_active', true)
+                    ->selectRaw('MIN(price) as min_price, MAX(price) as max_price')
+                    ->first();
+
+                // Stored as an array, never null, so "no rooms" is cached too.
+                return $row && $row->min_price !== null
+                    ? ['min' => (float) $row->min_price, 'max' => (float) $row->max_price]
+                    : [];
+            });
         } catch (\Throwable $e) {
-            return [];
+            return null;
         }
 
-        return $services->map(fn ($title) => [
+        return $prices ?: null;
+    }
+
+    /** The cheapest nightly rate, for "Rooms from ₹…" text. */
+    public static function fromPrice(): ?float
+    {
+        return self::roomPrices()['min'] ?? null;
+    }
+
+    /** Lowest to highest nightly rate, shown to Google as a price band. */
+    public static function priceRange(): ?string
+    {
+        $prices = self::roomPrices();
+
+        if (! $prices || ! $prices['min']) {
+            return null;
+        }
+
+        return $prices['min'] == $prices['max']
+            ? '₹'.number_format($prices['min'], 0)
+            : '₹'.number_format($prices['min'], 0).' - ₹'.number_format($prices['max'], 0);
+    }
+
+    /**
+     * The five facilities the hotel really has, for the Hotel schema.
+     *
+     * Fixed here rather than read from Admin > Services on purpose: a
+     * facility claimed to Google that the hotel does not have is worse than
+     * one left out.
+     */
+    public const AMENITIES = ['Air conditioning', 'Hot water', 'Free Wi-Fi', 'TV', 'Free parking'];
+
+    private static function amenities(): array
+    {
+        return array_map(fn ($name) => [
             '@type' => 'LocationFeatureSpecification',
-            'name' => $title,
+            'name' => $name,
             'value' => true,
-        ])->all();
+        ], self::AMENITIES);
+    }
+
+    /** "2:00 PM" becomes "14:00". Null when it cannot be read. */
+    private static function isoTime(?string $value): ?string
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return null;
+        }
+
+        try {
+            return Carbon::parse($value)->format('H:i');
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
     /**

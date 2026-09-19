@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', $room->name.' in RR Nagar, Bengaluru')
 @section('meta_description', \Illuminate\Support\Str::limit(strip_tags($room->short_description ?: $room->description), 150))
+@section('whatsapp_room', $room->name)
 
 @section('content')
 
