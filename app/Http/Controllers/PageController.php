@@ -37,7 +37,7 @@ class PageController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        $fromPrice = Room::where('is_active', true)->min('price');
+        $fromPrice = \App\Support\Seo::fromPrice();
 
         return view('location', compact('services', 'fromPrice'));
     }

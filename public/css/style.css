@@ -193,3 +193,59 @@ footer.site-footer h6 { color: #fff; font-weight: 700; letter-spacing: .5px; }
 @media (max-width: 991.98px) {
     .legal-toc { position: static; margin-bottom: 1.5rem; }
 }
+
+/* ---------------------------------------------------------------
+   Floating WhatsApp button (public pages only)
+   --------------------------------------------------------------- */
+
+.wa-float {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 1030;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25D366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
+    transition: transform .15s ease;
+}
+.wa-float:hover, .wa-float:focus { color: #fff; transform: scale(1.06); }
+.wa-float:focus-visible { outline: 3px solid #14532d; outline-offset: 3px; }
+
+/* Room so the button never sits on top of the last footer links. */
+body.has-wa-float .site-footer { padding-bottom: 5.5rem; }
+
+@media (max-width: 575.98px) {
+    .wa-float { width: 50px; height: 50px; right: 12px; bottom: 12px; }
+    .wa-float svg { width: 26px; height: 26px; }
+}
+
+/* ---------------------------------------------------------------
+   Gallery and guest reviews
+   --------------------------------------------------------------- */
+
+.gallery-thumb { border-radius: .6rem; overflow: hidden; background: #eef2ef; }
+.gallery-thumb img { width: 100%; height: 190px; object-fit: cover; transition: transform .25s ease; }
+.gallery-thumb:hover img { transform: scale(1.04); }
+@media (max-width: 575.98px) { .gallery-thumb img { height: 130px; } }
+
+.gallery-tabs .btn { border-radius: 2rem; }
+.gallery-tabs .btn.active { background: var(--hnp-primary); border-color: var(--hnp-primary); color: #fff; }
+
+#galleryModal .modal-content { background: #111; border: 0; }
+#galleryModal img { max-height: 80vh; width: auto; max-width: 100%; height: auto; }
+
+.review-card { background: #fff; border: 1px solid #e3eae6; border-radius: .75rem; padding: 1.5rem; }
+.review-stars { color: var(--hnp-accent); }
+.review-card blockquote p { color: #3d4c45; line-height: 1.65; }
+
+/* .g-5 rows are wider than the phone container (3rem gutter vs 1.5rem
+   padding) and made the page scroll sideways at 360px. Normal gutter on phones. */
+@media (max-width: 575.98px) {
+    .row.g-5 { --bs-gutter-x: 1.5rem; }
+}

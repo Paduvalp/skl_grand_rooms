@@ -16,6 +16,9 @@
     // fallback, written to be true of the area rather than precise about
     // times, which only somebody who drives it every day should fill in.
     $directions = trim((string) ($settings['how_to_reach'] ?? ''));
+
+    // Site Settings > Local search. Jnanabharathi until changed there.
+    $metro = trim((string) ($settings['nearest_metro'] ?? '')) ?: 'Jnanabharathi';
 @endphp
 
 @section('content')
@@ -125,10 +128,10 @@
                         <div class="service-icon"><i class="bi bi-train-front"></i></div>
                         <h3 class="fw-bold h6 mb-2">By metro</h3>
                         <p class="text-muted small mb-0">
-                            Take the Purple Line towards Kengeri and get off at Mysore Road or
-                            Kengeri, whichever your train reaches. An auto from either station
-                            brings you to Kenchenhalli. Call us and we will tell the driver
-                            where to turn.
+                            Take the Purple Line and get off at {{ $metro }} station. An auto
+                            from there brings you to Kenchenhalli. Call us
+                            @if ($phone)on <a href="tel:{{ preg_replace('/[^\d+]/', '', $phone) }}">{{ $phone }}</a>@endif
+                            and we'll guide the driver.
                         </p>
                     </div>
                 </div>

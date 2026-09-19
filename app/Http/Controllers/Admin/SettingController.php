@@ -11,7 +11,7 @@ class SettingController extends Controller
     /** Everything the admin can edit from the Site Settings screen. */
     public const KEYS = [
         'site_name', 'tagline', 'hero_title', 'hero_subtitle',
-        'phone', 'email', 'address', 'map_embed',
+        'phone', 'whatsapp_number', 'email', 'address', 'map_embed',
         'about_heading', 'about_text', 'about_points',
         'checkin_time', 'checkout_time', 'footer_text',
         // SEO
@@ -25,7 +25,7 @@ class SettingController extends Controller
         // Privacy policy and terms pages
         'cancellation_policy', 'legal_updated_at',
         // Location page
-        'how_to_reach',
+        'how_to_reach', 'nearest_metro',
     ];
 
     public function index()
@@ -45,8 +45,11 @@ class SettingController extends Controller
 
         $rules['email'] = ['nullable', 'email', 'max:190'];
         $rules['google_business_url'] = ['nullable', 'url', 'max:500'];
+        $rules['whatsapp_number'] = ['nullable', 'regex:/^\d{10,15}$/'];
 
-        $data = $request->validate($rules);
+        $data = $request->validate($rules, [
+            'whatsapp_number.regex' => 'WhatsApp number must be digits only, with the country code, for example 919876543210.',
+        ]);
 
         foreach (self::KEYS as $key) {
             Setting::put($key, $data[$key] ?? '');

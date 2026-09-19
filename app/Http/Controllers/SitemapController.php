@@ -4,17 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\URL;
 
 class SitemapController extends Controller
 {
     /**
-     * /sitemap.xml - every public page, built fresh each time.
+     * /sitemap.xml - every public page.
      *
      * Admin pages, the booking confirmation and the booking status lookup are
      * left out on purpose. They are private or have nothing to rank for.
+     *
+     * Cached for a day. Saving or deleting a room clears it straight away
+     * (see Room::booted), so a new room never waits a day to appear.
      */
     public function index(): Response
     {
+        $xml = Cache::remember('sitemap.xml', now()->addDay(), fn () => $this->build());
+
+        return response($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
+    }
+
+    private function build(): string
+    {
+        // The result is cached, so build it from APP_URL rather than from
+        // whichever address (http, www) the first visitor happened to use.
+        URL::forceRootUrl(rtrim((string) config('app.url'), '/'));
+
         $urls = [
             ['loc' => route('home'), 'priority' => '1.0', 'freq' => 'weekly'],
             ['loc' => route('rooms.index'), 'priority' => '0.9', 'freq' => 'weekly'],
@@ -22,6 +38,7 @@ class SitemapController extends Controller
             ['loc' => route('about'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => route('services'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => route('location'), 'priority' => '0.8', 'freq' => 'monthly'],
+            ['loc' => route('gallery'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => route('contact'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => route('privacy'), 'priority' => '0.3', 'freq' => 'yearly'],
             ['loc' => route('terms'), 'priority' => '0.3', 'freq' => 'yearly'],
@@ -56,25 +73,6 @@ class SitemapController extends Controller
 
         $xml .= '</urlset>';
 
-        return response($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
-    }
-
-    /**
-     * /robots.txt - served by Laravel so the sitemap line always points at
-     * whatever APP_URL is set to, with no editing when the domain changes.
-     */
-    public function robots(): Response
-    {
-        $lines = [
-            'User-agent: *',
-            'Allow: /',
-            'Disallow: /admin',
-            'Disallow: /booking/success',
-            'Disallow: /booking/status',
-            '',
-            'Sitemap: '.route('sitemap'),
-        ];
-
-        return response(implode("\n", $lines)."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
+        return $xml;
     }
 }
