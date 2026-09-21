@@ -19,7 +19,7 @@ class SettingSeeder extends Seeder
             'site_name' => 'SKL GRAND ROOMS',
             'tagline' => 'Clean, comfortable rooms in RR Nagar, Bengaluru',
 
-            'hero_title' => 'A comfortable stay in Rajarajeshwari Nagar',
+            'hero_title' => 'Rooms in RR Nagar, Bengaluru',
             'hero_subtitle' => 'Clean rooms, friendly staff and honest prices in RR Nagar, near Mysore Road. Book your room in under a minute.',
 
             // From the Google Maps listing
