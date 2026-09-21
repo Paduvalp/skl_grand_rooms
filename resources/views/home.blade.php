@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Rooms in RR Nagar, Bengaluru'.(!empty($fromPrice) ? ' | AC Rooms from ₹'.number_format((float) $fromPrice, 0) : ''))
+{{-- Kept under ~60 characters with a single "|", so Google shows it as written. --}}
+@section('title', 'Rooms in RR Nagar, Bengaluru'.(!empty($fromPrice) ? ' from ₹'.number_format((float) $fromPrice, 0) : ''))
 
 @section('meta_description', 'Clean AC rooms with geyser, free Wi-Fi, TV and parking in Kenchenhalli, RR Nagar, Bengaluru. Near Kengeri and Mysore Road. Book online in a minute.')
 
@@ -171,6 +172,17 @@
 @endif
 
 @include('partials.nearby')
+
+@push('schema')
+{{-- Tells Google the site's name, so results are headed "SKL Grand Rooms" rather than a guess. --}}
+<script type="application/ld+json">{!! \App\Support\Seo::json([
+    '@context' => 'https://schema.org',
+    '@type' => 'WebSite',
+    'name' => 'SKL Grand Rooms',
+    'alternateName' => ['SKL GRAND ROOMS', 'sklgrandrooms.com'],
+    'url' => rtrim((string) config('app.url'), '/').'/',
+]) !!}</script>
+@endpush
 
 <section class="py-5 bg-hnp text-white">
     <div class="container text-center">
