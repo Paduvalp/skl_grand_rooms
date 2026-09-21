@@ -30,19 +30,23 @@
             : $pageTitle.' | '.$siteName;
 
         $shareImage = \App\Support\Seo::shareImage();
+
+        // One address per page, always on APP_URL (no www), even when the
+        // page was opened through www. Stops Google splitting the site in two.
+        $canonical = rtrim((string) config('app.url'), '/').(request()->path() === '/' ? '' : '/'.request()->path());
     @endphp
 
     <title>{{ $fullTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
     <meta name="robots" content="{{ $metaRobots }}">
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="{{ $canonical }}">
 
     {{-- Shown when the page is shared on WhatsApp, Facebook, LinkedIn --}}
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ $siteName }}">
     <meta property="og:title" content="{{ $fullTitle }}">
     <meta property="og:description" content="{{ $metaDescription }}">
-    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:url" content="{{ $canonical }}">
     <meta property="og:locale" content="en_IN">
     @if ($shareImage)
         <meta property="og:image" content="{{ $shareImage }}">
