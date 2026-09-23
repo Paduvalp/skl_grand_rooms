@@ -26,9 +26,8 @@ class SettingSeeder extends Seeder
             'phone' => '+91 78991 56936',
             'address' => 'Kenchenhalli, Rajarajeshwari Nagar, Bengaluru, Karnataka 560026',
 
-            // CHECK - the listing has no email or website yet. Change this to
-            // the address you actually want booking enquiries to reach.
-            'email' => 'reservations@sklgrandrooms.com',
+            // The mailbox booking enquiries reach.
+            'email' => 'info@sklgrandrooms.com',
 
             // Google map of the hotel. Works without an API key.
             'map_embed' => '<iframe src="https://maps.google.com/maps?q=SKL+GRAND+ROOMS+Kenchenhalli+Rajarajeshwari+Nagar+Bengaluru+560026&output=embed" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',

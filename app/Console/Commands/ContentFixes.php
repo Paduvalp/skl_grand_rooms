@@ -22,7 +22,10 @@ class ContentFixes extends Command
 {
     protected $signature = 'skl:content-fixes {--dry-run : List the changes without saving them}';
 
-    protected $description = 'Fix "centre of the city" wording, false facility claims, Deluxe room guests and map pin';
+    protected $description = 'Fix "centre of the city" wording, false facility claims, Deluxe room guests, contact email and map pin';
+
+    /** The mailbox guests should write to. */
+    private const OFFICIAL_EMAIL = 'info@sklgrandrooms.com';
 
     /** Wording that places the hotel in the city centre. It is on the outskirts. */
     private const CENTRE_PHRASES = [
@@ -54,6 +57,7 @@ class ContentFixes extends Command
         $this->fixCentreWording();
         $this->fixAboutText();
         $this->fixDeluxeGuests();
+        $this->fixEmail();
         $this->fillIfEmpty('geo_lat', '12.934789');
         $this->fillIfEmpty('geo_lng', '77.5112355');
         $this->fillIfEmpty('nearest_metro', 'Jnanabharathi');
@@ -141,6 +145,19 @@ class ContentFixes extends Command
 
         if (! $this->dry) {
             $room->update(['capacity' => 2]);
+        }
+    }
+
+    /**
+     * The website showed a personal Gmail address as the hotel's email.
+     * Anything already on the hotel's own domain is left alone.
+     */
+    private function fixEmail(): void
+    {
+        $email = trim((string) Setting::get('email', ''));
+
+        if ($email === '' || ! str_ends_with(mb_strtolower($email), '@sklgrandrooms.com')) {
+            $this->saveSetting('email', $email, self::OFFICIAL_EMAIL);
         }
     }
 
