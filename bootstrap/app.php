@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureAdmin::class,
+            'sms.code' => \App\Http\Middleware\RequireSmsCode::class,
         ]);
 
         // Notes which campaign or website sent each visitor, so a booking can
