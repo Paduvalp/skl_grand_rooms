@@ -26,6 +26,7 @@
                 <li><a class="nav-link {{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}" href="{{ route('admin.gallery.index') }}"><i class="bi bi-images me-2"></i>Gallery</a></li>
                 <li><a class="nav-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}" href="{{ route('admin.reviews.index') }}"><i class="bi bi-chat-quote me-2"></i>Reviews</a></li>
                 <li><a class="nav-link {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}" href="{{ route('admin.messages.index') }}"><i class="bi bi-envelope me-2"></i>Messages</a></li>
+                <li><a class="nav-link {{ request()->routeIs('admin.sms.*') ? 'active' : '' }}" href="{{ route('admin.sms.create') }}"><i class="bi bi-chat-dots me-2"></i>SMS Marketing</a></li>
                 <li><a class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}"><i class="bi bi-gear me-2"></i>Site Settings</a></li>
                 <li class="mt-3 pt-2" style="border-top:1px solid rgba(255,255,255,.08)">
                     <a class="nav-link" href="{{ route('home') }}" target="_blank"><i class="bi bi-box-arrow-up-right me-2"></i>View Website</a>
