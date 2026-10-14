@@ -94,7 +94,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('rooms', AdminRoomController::class)->except('show');
 
         Route::get('bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+        Route::get('bookings/create', [AdminBookingController::class, 'create'])->name('bookings.create');
+        Route::post('bookings', [AdminBookingController::class, 'store'])->name('bookings.store');
         Route::get('bookings/{booking}', [AdminBookingController::class, 'show'])->name('bookings.show');
+        Route::get('bookings/{booking}/edit', [AdminBookingController::class, 'edit'])->name('bookings.edit');
+        Route::put('bookings/{booking}', [AdminBookingController::class, 'update'])->name('bookings.update');
+        Route::get('bookings/{booking}/documents/{document}', [AdminBookingController::class, 'document'])->name('bookings.documents.show');
+        Route::delete('bookings/{booking}/documents/{document}', [AdminBookingController::class, 'destroyDocument'])->name('bookings.documents.destroy');
         Route::patch('bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.status');
         Route::delete('bookings/{booking}', [AdminBookingController::class, 'destroy'])->name('bookings.destroy');
 

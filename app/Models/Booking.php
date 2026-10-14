@@ -17,6 +17,7 @@ class Booking extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
+        'additional_guests',
         'check_in',
         'check_out',
         'nights',
@@ -43,6 +44,7 @@ class Booking extends Model
             'check_out' => 'date',
             'total_price' => 'decimal:2',
             'first_seen_at' => 'datetime',
+            'additional_guests' => 'array',
         ];
     }
 
@@ -79,6 +81,20 @@ class Booking extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(BookingDocument::class)->latest();
+    }
+
+    /**
+     * Rows cascade away in the database, but the files on disk have to be
+     * removed one by one.
+     */
+    protected static function booted(): void
+    {
+        static::deleting(fn (self $booking) => $booking->documents->each->delete());
     }
 
     public static function makeReference(): string
