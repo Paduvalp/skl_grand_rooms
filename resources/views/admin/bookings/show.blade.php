@@ -4,7 +4,10 @@
 
 @section('content')
 
-<a href="{{ route('admin.bookings.index') }}" class="btn btn-sm btn-outline-secondary mb-3">&larr; Back to bookings</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('admin.bookings.index') }}" class="btn btn-sm btn-outline-secondary">&larr; Back to bookings</a>
+    <a href="{{ route('admin.bookings.edit', $booking) }}" class="btn btn-sm btn-hnp"><i class="bi bi-pencil me-1"></i>Edit Booking</a>
+</div>
 
 <div class="row g-4">
     <div class="col-lg-7">
@@ -28,6 +31,17 @@
                 <div class="d-flex justify-content-between border-bottom py-2"><span class="text-muted">Name</span><strong>{{ $booking->customer_name }}</strong></div>
                 <div class="d-flex justify-content-between border-bottom py-2"><span class="text-muted">Phone</span><strong><a href="tel:{{ $booking->customer_phone }}">{{ $booking->customer_phone }}</a></strong></div>
                 <div class="d-flex justify-content-between border-bottom py-2"><span class="text-muted">Email</span><strong><a href="mailto:{{ $booking->customer_email }}">{{ $booking->customer_email }}</a></strong></div>
+                @foreach ($booking->additional_guests ?? [] as $guest)
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span class="text-muted">Guest {{ $loop->iteration + 1 }}</span>
+                        <strong>
+                            {{ $guest['name'] ?: '—' }}
+                            @if ($guest['phone'])
+                                <span class="fw-normal">&middot; <a href="tel:{{ $guest['phone'] }}">{{ $guest['phone'] }}</a></span>
+                            @endif
+                        </strong>
+                    </div>
+                @endforeach
                 <div class="d-flex justify-content-between py-2"><span class="text-muted">Booked on</span><strong>{{ $booking->created_at->format('d M Y, h:i A') }}</strong></div>
 
                 @if ($booking->notes)
@@ -141,6 +155,19 @@
 
                     <button class="btn btn-hnp w-100">Update Booking</button>
                 </form>
+            </div>
+        </div>
+
+        <div class="card stat-card mb-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <strong>Documents</strong>
+                <span class="badge bg-secondary">{{ $booking->documents->count() }}</span>
+            </div>
+            <div class="card-body">
+                @include('admin.bookings._documents', ['canDelete' => true])
+                <a href="{{ route('admin.bookings.edit', $booking) }}" class="btn btn-sm btn-outline-secondary w-100 mt-3">
+                    <i class="bi bi-upload me-1"></i>Upload documents
+                </a>
             </div>
         </div>
 

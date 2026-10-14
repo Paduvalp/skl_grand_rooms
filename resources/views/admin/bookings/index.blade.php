@@ -4,6 +4,10 @@
 
 @section('content')
 
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ route('admin.bookings.create') }}" class="btn btn-hnp"><i class="bi bi-plus-lg me-1"></i>Add Booking</a>
+</div>
+
 <form method="GET" action="{{ route('admin.bookings.index') }}" class="card stat-card mb-3">
     <div class="card-body">
         <div class="row g-2 align-items-end">
@@ -99,6 +103,7 @@
                                     <button class="btn btn-sm btn-success" title="Confirm"><i class="bi bi-check-lg"></i></button>
                                 </form>
                             @endif
+                            <a href="{{ route('admin.bookings.edit', $booking) }}" class="btn btn-sm btn-outline-secondary" title="Edit"><i class="bi bi-pencil"></i></a>
                             <a href="{{ route('admin.bookings.show', $booking) }}" class="btn btn-sm btn-outline-primary">Open</a>
                         </td>
                     </tr>
